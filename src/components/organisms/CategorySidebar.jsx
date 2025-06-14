@@ -132,7 +132,7 @@ const CategorySidebar = ({
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-sm opacity-75">
-                    {taskCounts[category.id] || 0}
+{taskCounts[category.Id] || 0}
                   </span>
                   <button
                     onClick={(e) => {

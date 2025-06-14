@@ -23,7 +23,7 @@ const TaskInput = ({ onTaskCreated, categories = [] }) => {
 
     setIsSubmitting(true);
     try {
-      const taskData = {
+const taskData = {
         title: title.trim(),
         priority,
         categoryId: categoryId || null,

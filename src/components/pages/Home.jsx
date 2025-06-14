@@ -27,7 +27,7 @@ const Home = () => {
       setLoading(true);
       setError(null);
       try {
-        const [tasksData, categoriesData] = await Promise.all([
+const [tasksData, categoriesData] = await Promise.all([
           taskService.getAll(),
           categoryService.getAll()
         ]);
@@ -58,7 +58,7 @@ const Home = () => {
 
     // Category filter
     if (selectedCategory) {
-      filtered = filtered.filter(task => task.categoryId === selectedCategory);
+filtered = filtered.filter(task => task.category_id === selectedCategory);
     }
 
     // Priority filter
@@ -132,8 +132,8 @@ const Home = () => {
   const taskCounts = useMemo(() => {
     const counts = {};
     tasks.forEach(task => {
-      if (task.categoryId) {
-        counts[task.categoryId] = (counts[task.categoryId] || 0) + 1;
+if (task.category_id) {
+        counts[task.category_id] = (counts[task.category_id] || 0) + 1;
       }
     });
     return counts;
