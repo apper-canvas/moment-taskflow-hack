@@ -1,0 +1,57 @@
+[
+  {
+    "id": "1",
+    "title": "Review project proposal for Q1 marketing campaign",
+    "completed": false,
+    "priority": "high",
+    "categoryId": "1",
+    "dueDate": "1/15/2024 9:00:00 AM.000Z",
+    "createdAt": "2024-01-10T08:30:00.000Z",
+    "completedAt": null,
+    "notes": "Need to focus on budget allocation and timeline feasibility"
+  },
+  {
+    "id": "2",
+    "title": "Update client presentation with latest metrics",
+    "completed": true,
+    "priority": "medium",
+    "categoryId": "1",
+    "dueDate": "2024-01-12T14:00:00.000Z",
+    "createdAt": "2024-01-08T10:15:00.000Z",
+    "completedAt": "2024-01-11T16:30:00.000Z",
+    "notes": "Include conversion rates and user engagement data"
+  },
+  {
+    "id": "3",
+    "title": "Schedule team standup for next week",
+    "completed": false,
+    "priority": "low",
+    "categoryId": "2",
+    "dueDate": "2024-01-16T10:00:00.000Z",
+    "createdAt": "2024-01-10T14:20:00.000Z",
+    "completedAt": null,
+    "notes": "Send calendar invites to all team members"
+  },
+  {
+    "id": "4",
+    "title": "Buy groceries for the weekend",
+    "completed": false,
+    "priority": "medium",
+    "categoryId": "3",
+    "dueDate": "2024-01-13T18:00:00.000Z",
+    "createdAt": "2024-01-10T12:00:00.000Z",
+    "completedAt": null,
+    "notes": "Don't forget organic vegetables and coffee beans"
+  },
+  {
+    "id": "5",
+    "title": "Research new design trends for mobile apps",
+    "completed": false,
+    "priority": "low",
+    "categoryId": "4",
+    "dueDate": null,
+    "createdAt": "2024-01-09T16:45:00.000Z",
+    "completedAt": null,
+    "notes": "Focus on accessibility and user experience improvements"
+  }
+]
