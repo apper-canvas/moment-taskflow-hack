@@ -10,12 +10,17 @@ import ApperIcon from '@/components/ApperIcon';
 import { taskService } from '@/services';
 
 const TaskItem = ({ task, onTaskUpdate, onTaskDelete, categories = [] }) => {
+  // Validate required props
+  if (!task) {
+    console.warn('TaskItem: task prop is required');
+    return null;
+  }
+
   const [isEditing, setIsEditing] = useState(false);
-  const [editTitle, setEditTitle] = useState(task.title);
+  const [editTitle, setEditTitle] = useState(task.title || '');
   const [isUpdating, setIsUpdating] = useState(false);
 
   const category = categories.find(c => c.id === task.categoryId);
-
   const handleToggleComplete = async () => {
     setIsUpdating(true);
     try {
@@ -65,25 +70,48 @@ const TaskItem = ({ task, onTaskUpdate, onTaskDelete, categories = [] }) => {
     }
   };
 
-  const formatDueDate = (date) => {
+const formatDueDate = (date) => {
     if (!date) return null;
-    const dueDate = new Date(date);
     
-    if (isToday(dueDate)) return 'Today';
-    if (isTomorrow(dueDate)) return 'Tomorrow';
-    return format(dueDate, 'MMM d, yyyy');
+    try {
+      const dueDate = new Date(date);
+      
+      // Validate date
+      if (isNaN(dueDate.getTime())) {
+        console.warn('TaskItem: Invalid due date format:', date);
+        return 'Invalid date';
+      }
+      
+      if (isToday(dueDate)) return 'Today';
+      if (isTomorrow(dueDate)) return 'Tomorrow';
+      return format(dueDate, 'MMM d, yyyy');
+    } catch (error) {
+      console.error('TaskItem: Error formatting due date:', error);
+      return 'Invalid date';
+    }
   };
 
   const getDueDateColor = (date) => {
     if (!date) return 'text-gray-500';
-    const dueDate = new Date(date);
     
-    if (isPast(dueDate) && !isToday(dueDate)) return 'text-error';
-    if (isToday(dueDate)) return 'text-warning';
-    return 'text-gray-500';
+    try {
+      const dueDate = new Date(date);
+      
+      // Validate date
+      if (isNaN(dueDate.getTime())) {
+        return 'text-gray-500';
+      }
+      
+      if (isPast(dueDate) && !isToday(dueDate)) return 'text-error';
+      if (isToday(dueDate)) return 'text-warning';
+      return 'text-gray-500';
+    } catch (error) {
+      console.error('TaskItem: Error checking due date color:', error);
+      return 'text-gray-500';
+    }
   };
 
-  return (
+return (
     <motion.div
       layout
       initial={{ opacity: 0, y: 20 }}
@@ -91,7 +119,7 @@ const TaskItem = ({ task, onTaskUpdate, onTaskDelete, categories = [] }) => {
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.2 }}
       className={`
-        bg-white rounded-lg border border-gray-200 p-4 transition-all duration-200
+        group bg-white rounded-lg border border-gray-200 p-4 transition-all duration-200
         ${task.completed ? 'opacity-75' : 'hover:shadow-md hover:-translate-y-0.5'}
       `}
     >
@@ -177,10 +205,20 @@ const TaskItem = ({ task, onTaskUpdate, onTaskDelete, categories = [] }) => {
                 <span>{formatDueDate(task.dueDate)}</span>
               </div>
             )}
-
-            {/* Created Date */}
+{/* Created Date */}
             <div className="text-gray-400 ml-auto">
-              {format(new Date(task.createdAt), 'MMM d')}
+              {(() => {
+                try {
+                  const createdDate = new Date(task.createdAt);
+                  if (isNaN(createdDate.getTime())) {
+                    return 'No date';
+                  }
+                  return format(createdDate, 'MMM d');
+                } catch (error) {
+                  console.error('TaskItem: Error formatting created date:', error);
+                  return 'No date';
+                }
+              })()}
             </div>
           </div>
         </div>
