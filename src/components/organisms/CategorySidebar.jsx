@@ -96,16 +96,24 @@ const CategorySidebar = ({
         {/* Category List */}
         <div className="space-y-1">
           {categories.map((category) => (
-            <motion.div
+<motion.div
               key={category.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               className="group"
             >
-              <button
+              <div
+                role="button"
+                tabIndex="0"
                 onClick={() => onCategorySelect(category.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onCategorySelect(category.id);
+                  }
+                }}
                 className={`
-                  w-full flex items-center justify-between p-3 rounded-lg text-left transition-colors duration-150
+                  w-full flex items-center justify-between p-3 rounded-lg text-left transition-colors duration-150 cursor-pointer
                   ${selectedCategory === category.id 
                     ? 'text-white' 
                     : 'text-gray-700 hover:bg-gray-100'
@@ -136,7 +144,7 @@ const CategorySidebar = ({
                     <ApperIcon name="X" className="w-3 h-3" />
                   </button>
                 </div>
-              </button>
+              </div>
             </motion.div>
           ))}
         </div>
